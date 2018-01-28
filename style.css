@@ -1,132 +1,68 @@
-:root {
-    --stack-color: #707070;
-    --func-color: #d1d1d1;
-    --desc-color: #a3a3a3;
-
-    --stack_vis-color: #9fe0a8;
-    --stack_props-bg: #466ebf;
-    --stack_props-title:  #94b0e8;
-    --stack_props-details: #091d47;
-}
-
-  .container {
+.container {
+  /*background-color: red;*/
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1050px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-/*** rows ***/
-.stack {
-  /*background-color: var(--stack-color);*/
-  height: 200px;
-  flex: 1;
-}
-.func {
-  /*background-color: var(--func-color);*/
-  flex: 1;
-  height: 200px;
-  margin-top: 20px;
-}
-.desc {
-  /*background-color: var(--desc-color);*/
-  flex: 1;
-  height: 200px;
-}
-
-/*** top index row ***/
-.topIndexRow {
-/*   background-color: orange; */
-  height: 50px;
-  margin-left: 2.5%;
-  width: 95%;
-  margin-bottom: -50px;
-}
-.topIndexImage svg {
-  fill: orange;
-}
-.topIndexImage {
-  margin-left: -50px;
-}
-
-/*** STACK ROW ***/
-.stack_row {
-  display: flex;
-  flex-direction: row;
-}
-.stack_vis {
-  /*background-color: blue;*/
-  height: 200px;
-  flex: 2;
-}
-.stack_props {
-  background-color: var(--stack_props-bg);
-  height: 200px;
-  flex: 1;
-}
-.prop_title {
-  font-family: 'Noto Sans', sans-serif;
-  color: var(--stack_props-title);
-  letter-spacing: .2em;
-  text-align: center;
-}
-.prop_details {
-  font-family: 'Ubuntu Mono', monospace;
-  color: var(--stack_props-details);
-  margin-left: 20%;
-  font-weight: bold;
-}
-.svgContainer {
-  display: flex;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-right: auto;
-  margin-left: auto;
-  height: 75px;
-  overflow: hidden;
   justify-content: center;
+  max-width: 1100px;
+  margin-top: 50px;
 }
 
-/*** FUNCTION ROW ***/
-.func_row {
+.row_topIndex, .row_buttons, .row_errorMessage, .row_propsAndReturnVal, .row_desc {
   display: flex;
   flex-direction: row;
+  width: 60%;
+  align-self: center;
+}
+.row_svgViz {
+  align-self: center;
+  width: 60%;
+}
+.row_topIndex {
+  height: 50px;
+  margin-left: 15%;
+}
+.row_buttons {
+  background-color: purple;
   justify-content: space-around;
 }
-.func_buttons {
-  /*background-color: orange;*/
-  flex: 2;
-  height: 100px;
-  text-align: center;
+.buttons {
+  background-color: blue;
 }
-.func_buttons button {
-  font-family: 'Ubuntu Mono';
-  letter-spacing: .2em;
-  font-size: 12pt;
-  background-color: #626366;
-  padding: 10px;
-  color: white;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-left: 20px;
+.row_errorMessage {
+  justify-content: center;
 }
-.func_buttons button:hover {
-  background-color: #9fa0a3;
-  cursor: pointer;
+.row_propsAndReturnVal {
+  margin-top: 20px;
+  background-color: green;
+  justify-content: space-between;
 }
-.func_return {
-  background-color: #626366;
+.col_stackProps, .col_returnVal {
+  padding-left: 30px;
   flex: 1;
-  height: 100px;
-  color: #9fa0a3;
 }
-.return_title {
-  font-family: 'Noto Sans', sans-serif;
-  color: var(--stack_props-title);
-  letter-spacing: .2em;
-  text-align: center;
-  font-weight: bold;
-  color: #9fa0a3;
+.col_stackProps {
+  background-color: pink;
+}
+.col_returnVal {
+  background-color: orange;
+}
+.row_desc {
+  background-color: blue;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 700px) {
+  .row_svgViz {
+    width: 100%;
+  }
+  .row_buttons {
+    flex-direction: column;
+    width: 90%;
+  }
+  .row_propsAndReturnVal {
+    flex-direction: column;
+    width: 90%;
+  }
+
 }
