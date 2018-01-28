@@ -29,11 +29,14 @@ for (var i = 0; i < 10; i++) {
 }
 
 //stack class with properties to push data to array squares
+var textDataXStartLocation = 0;
+var textDataYLocation = 45;
+
 class Stack {
   constructor() {
     this.data = [],
     this.top = -1,
-    this.x = 0;
+    this.dataXLocation = 0;
     this.letter = 97;
   }
   pushData() {
@@ -41,8 +44,8 @@ class Stack {
     document.getElementsByClassName("topIndex")[0].innerHTML = this.top;
     //creates letters in the array
     var textData = container.append("text")
-             .attr("x", 0)
-             .attr("y", 45)
+             .attr("x", textDataXStartLocation)
+             .attr("y", textDataYLocation)
              .attr("font-family", "Arial Black")
              .attr("font-size", "20px")
              .attr("fill", "white")
@@ -51,15 +54,15 @@ class Stack {
     //pushes the letters to the data array
     this.data.push(textData);
     //changes the HTML
-    if (this.x === 0) {
-      this.x += 5
+    if (this.dataXLocation === 0) {
+      this.dataXLocation += 5
       document.getElementsByClassName("dataArray")[0].innerHTML += `"${String.fromCharCode(this.letter)}"`;
     } else {
-      this.x += 10
+      this.dataXLocation += 10
       document.getElementsByClassName("dataArray")[0].innerHTML += `, "${String.fromCharCode(this.letter)}"`;
     }
-    textData.transition().attr("x", `${this.x}%`).duration(1000);
-    document.getElementsByClassName("topIndexImage")[0].style.marginLeft = `${this.x-4}%`;
+    textData.transition().attr("x", `${this.dataXLocation}%`).duration(1000);
+    document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.dataXLocation-5}%`;
     this.letter++;
   }
 } //stack end
