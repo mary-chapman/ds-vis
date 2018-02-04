@@ -1,5 +1,5 @@
 var svgContainerColor = "#F6F6F6"
-var svgContainerHeight = 80;
+var svgContainerHeight = 50;
 var svgContainerWidth = 100;
 //var svgContainerFirstMargin = (100 - (10 * arraySquareWidth)) / 10;
 
@@ -9,6 +9,16 @@ var arraySquareHeight = 50;
 var arraySquareWidth = svgContainerWidth / 10;
 var arraySquareColor = "#464A63";
 
+var containerSVGIndex = d3
+  .select(".row_topIndex")
+  .append("svg")
+  .attr("height", 50)
+  .attr("width", `${svgContainerWidth}%`)
+  /****temp****/
+  .style("background-color", "purple")
+
+
+
 
 //to create the array squares SVG container
 var container = d3
@@ -16,8 +26,17 @@ var container = d3
   .append("svg")
   .attr("height", svgContainerHeight)
   .attr("width", `${svgContainerWidth}%`)
-  //.style("background-color", svgContainerColor)
+  /****temp****/
+  .style("background-color", "yellow")
   //.style("box-shadow", "2px 2px 8px #888888")
+
+  var topIndexPointer = containerSVGIndex
+     .append("rect")
+     .attr("x", `-${svgContainerWidth}%`)
+     .attr("y", 25)
+     .attr("height", 25)
+     .attr("width", `${arraySquareWidth}%`)
+     .attr("fill", "yellow")
 
 //to create the SQUARE
 for (var i = 0; i < 10; i++) {
@@ -37,19 +56,16 @@ for (var i = 0; i < 10; i++) {
 function createText() {
   return container.append("text")
          .attr("x", 0)
-         .attr("y", svgContainerHeight/2 - 8)
+         .attr("y", svgContainerHeight/2)
          .attr("font-family", "Arial Black")
          .attr("font-size", "20px")
          .attr("fill", "white")
          .attr("text-anchor", "middle")
+         .attr("dominant-baseline", "central")
          .text("X")
   }
 
-  //to create top index pointer
 
-//stack class with properties to push data to array squares
-//var textDataXStartLocation = 0;
-//var textDataYLocation = 45;
 
 class Stack {
   constructor() {
@@ -64,11 +80,23 @@ class Stack {
   }
   pushData() {
     createText().transition().attr("x", `${this.dataXMove + arraySquareWidth/2}%`).duration(1000);
-
-    document.getElementsByClassName("topSVG")[0].style.display = "inline";
-    document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.dataXMove}%`;
+    console.log(this.isEmpty())
+    if (this.isEmpty()) {
+      topIndexPointer.transition().attr("x", 0).duration(1000);
+    } else {
+      topIndexPointer.transition().attr("x", `${this.dataXMove}%`).duration(1000);
+    }
 
     this.dataXMove = this.dataXMove + arraySquareWidth;
+    this.top++;
+
+    //document.getElementsByClassName("topSVG")[0].style.display = "inline";
+    //document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.dataXMove}%`;
+
+    //topIndexContainer.transition().attr("x", `${this.dataXMove + arraySquareWidth}%`).duration(1000);
+
+
+
   }
 
 
