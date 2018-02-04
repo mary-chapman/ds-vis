@@ -1,14 +1,20 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Neucha|Archivo" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
   </head>
   <body>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Ubuntu+Mono" rel="stylesheet">
+
+<!--TITTLE-->
+<div class="title">
+  <h1>Stacks</h1>
+</div>
+<!----------->
 
 <div class="container">
 
@@ -37,8 +43,6 @@
 </div>
 <!--------------->
 
-
-
 <!-- STACK VIZ -->
 <div class="row_svgViz">
   <div class="svgContainer"></div>
@@ -47,7 +51,7 @@
 
 <!--ERROR MESSAGE -->
 <div class="row_errorMessage">
-  <p>error message</p>
+  <p class="return_text">return value: <div class="return"><p>g</p></div>
 </div>
 <!------------------>
 
@@ -59,13 +63,11 @@
   <button class="isEmptyBtn"><p>isEmpty()</p></button>
 </div>
 <!--------------- >
-
-
 <!--- PROPERTIES AND RETURN VAL COLUMN (rows on mobile) -->
-<div class="row_propsAndReturnVal">
+<!-- <div class="row_propsAndReturnVal"> -->
   <!--- PROPERTIES --->
-  <div class="col_stackProps">
-    <h2 class="prop_title">Stack Properties:</h2>
+  <div class="row_stackProps">
+    <!-- <h2 class="prop_title">Stack Properties:</h2> -->
     <p>Data: [ <span class="dataArray"></span> ]</p>
     <p>Max size: 10</p>
     <p>Top index:
@@ -73,19 +75,40 @@
     </p>
   </div>
   <!--------------- >
-
   <!--- RETURN VAL -->
-  <div class="col_returnVal">
+  <!-- <div class="col_returnVal">
   <h2>return value</h2>
-  </div>
+    <p class="returnVal"></p>
+  </div> -->
   <!------------------>
-</div>
+<!-- </div> -->
 <!------------------------------------------------------------>
 
 <!--- DESCRIPTIONS --->
 <div class="row_desc">
-  DESCRIPTIONS OF STACK AND ITS METHODS WILL GO HERE
-</div>
+  <div class="stack_desc">
+    <p>[hover over method buttons for a description of the methods]</p>
+    <p>
+      A <span class="highlighted">stack</span> is a data structure where the last element removed from the set is element that was last inserted (First in, first out or FIFO).
+      <P><span class="highlighted">setup:</span>
+      <ul style="list-style-type:square">
+        <li>a property (usually an <span class="highlighted">array</span>) that will hold the data contents.  This usually has a <span class="highlighted">max amount</span> of items that it will hold.</li>
+        <li>a property that holds the <span class="highlighted">top index</span>.  This usually starts at -1 or 0 and corresponds to the number of elements currently in the stack.
+      </ul>
+    </p>
+  </div>
+  <div class="stack_desc">
+  </div>
+  <!-- <p>Lorem <span class="highlighted">ipsum</span> dolor sit amet, consectetur adipiscing elit. Integer laoreet est nec tortor dapibus, at congue lorem congue. Ut porttitor est nec erat venenatis consequat sit amet quis massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean malesuada eu dui ut lacinia. Ut nec tortor non dolor convallis vulputate et lacinia tortor. Duis vitae hendrerit nulla. Maecenas eget sapien ut felis tempor iaculis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas ut pretium purus, id convallis metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas accumsan varius lacus, sed pellentesque nibh auctor ut. Nullam quis vestibulum felis. Cras eu justo sit amet ex imperdiet egestas. Duis vulputate ultrices metus eget condimentum. Nullam porta suscipit velit quis congue. Duis venenatis pellentesque velit, non dictum sem efficitur at.
+  </p>
+  <ul style="list-style-type:square">
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+  </ul>
+  <p>
+  Vestibulum rutrum est risus, nec gravida ligula vestibulum ac. Vivamus volutpat egestas sodales. Vivamus sed bibendum ipsum. Sed ut ligula varius sapien tempus condimentum pharetra vitae odio. Fusce commodo, felis a tristique iaculis, eros augue laoreet augue, congue tincidunt libero quam vel metus. Donec id rhoncus ipsum. Maecenas eu nisi purus. Morbi molestie consectetur lacus eget suscipit.</div>
+  </p> -->
 <!-------------------->
 
 </div>
