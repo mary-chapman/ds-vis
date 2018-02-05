@@ -199,12 +199,17 @@ body {
   .row_topIndex {
     width: 100%;
   }
-  .row_buttons, .btns_container, .row_errorMessage, .row_stackProps, .row_desc {
+  .btns_container, .row_errorMessage, .row_stackProps, .row_desc {
     width: 95%;
+  }
+  .btns_container {
+    margin-left: auto;
+    margin-right: auto;
   }
   .row_buttons button  {
     font-size: 10pt;
     padding: 0 2%;
+
   }
   /*.return_text {
     display: none;
