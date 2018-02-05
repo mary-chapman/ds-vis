@@ -9,16 +9,13 @@ var arraySquareHeight = 50;
 var arraySquareWidth = svgContainerWidth / 10;
 var arraySquareColor = "#464A63";
 
+var topIndexHeight = 25;
+
 var containerSVGIndex = d3
   .select(".row_topIndex")
   .append("svg")
   .attr("height", 50)
   .attr("width", `${svgContainerWidth}%`)
-  /****temp****/
-  .style("background-color", "purple")
-
-
-
 
 //to create the array squares SVG container
 var container = d3
@@ -26,17 +23,26 @@ var container = d3
   .append("svg")
   .attr("height", svgContainerHeight)
   .attr("width", `${svgContainerWidth}%`)
-  /****temp****/
-  .style("background-color", "yellow")
-  //.style("box-shadow", "2px 2px 8px #888888")
 
+//to create the top index pointer visual
   var topIndexPointer = containerSVGIndex
      .append("rect")
      .attr("x", `-${svgContainerWidth}%`)
-     .attr("y", 25)
-     .attr("height", 25)
+     .attr("y", topIndexHeight)
+     .attr("height", topIndexHeight)
      .attr("width", `${arraySquareWidth}%`)
-     .attr("fill", "yellow")
+     .attr("fill", "#6c5382")
+
+//to create text for the top index pointer visual
+var topIndexPointerText = containerSVGIndex.append("text")
+  .attr("x", `-${svgContainerWidth}%`)
+  .attr("y", topIndexHeight + (topIndexHeight/2))
+  .attr("font-family", "Arial Black")
+  .attr("font-size", "16px")
+  .attr("fill", "white")
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "central")
+  .text("TOP")
 
 //to create the SQUARE
 for (var i = 0; i < 10; i++) {
@@ -52,8 +58,9 @@ for (var i = 0; i < 10; i++) {
       arraySquareXLocation += 10;
 }
 
+
 //creates LETTER TEXT in the array
-function createText() {
+function createText(txt) {
   return container.append("text")
          .attr("x", 0)
          .attr("y", svgContainerHeight/2)
@@ -62,100 +69,103 @@ function createText() {
          .attr("fill", "white")
          .attr("text-anchor", "middle")
          .attr("dominant-baseline", "central")
-         .text("X")
+         .text(txt)
   }
 
-
+var returnInnerHTML = document.getElementsByClassName("return")[0].innerHTML;
 
 class Stack {
   constructor() {
     this.data = [],
+    this.dataLetters = [];
     this.top = -1,
     this.dataXMove = 0;
-    this.letterCode = 96;
+    this.letterCode = 97; //97 = ascii code for "a"
     //this.svgXMove = 10;
   }
+  //to retore colors after peek() has been run
+  resetColors() {
+    this.data[this.top].attr("fill", "white")
+    topIndexPointer.attr("fill", "#6c5382");
+  }
   isEmpty() {
-    return this.top === -1 ? true : false;
+    if (this.top === -1) {
+      document.getElementsByClassName("return")[0].innerHTML = '<p>true</p>'
+      return true;
+    } else {
+      this.resetColors();
+      document.getElementsByClassName("return")[0].innerHTML = '<p>false</p>'
+      return false;
+    }
   }
   pushData() {
-    createText().transition().attr("x", `${this.dataXMove + arraySquareWidth/2}%`).duration(1000);
-    console.log(this.isEmpty())
-    if (this.isEmpty()) {
-      topIndexPointer.transition().attr("x", 0).duration(1000);
+    if (this.top < 9) {
+      //creates the letters
+      var newLetter = createText(String.fromCharCode(this.letterCode));
+      newLetter.transition().attr("x", `${this.dataXMove + arraySquareWidth/2}%`).duration(1000);
+      this.data.push(newLetter);
+      this.dataLetters.push(String.fromCharCode(this.letterCode))
+      //moving the text when pushed
+      if (this.isEmpty()) {
+        topIndexPointer.transition().attr("x", 0).duration(1000);
+        topIndexPointerText.transition().attr("x", `${arraySquareWidth/2}%`).duration(1000);
+      } else {
+        this.resetColors();
+        topIndexPointer.transition().attr("x", `${this.dataXMove}%`).duration(1000);
+        topIndexPointerText.transition().attr("x", `${this.dataXMove + arraySquareWidth/2}%`).duration(1000);
+      }
+      //to update values to prepare for next push
+      //this.data.push(String.fromCharCode(this.letterCode))
+      this.dataXMove = this.dataXMove + arraySquareWidth;
+      this.top++;
+      if (this.letterCode === 122) {
+        this.letterCode = 97;
+      } else {
+        this.letterCode++;
+      }
+      //to change the HTML
+      document.getElementsByClassName("letterToPush")[0].innerHTML = String.fromCharCode(this.letterCode);
+      document.getElementsByClassName("return")[0].innerHTML = '<p style="color:#d6d6d6"><i>* no return value</i></p>'
     } else {
-      topIndexPointer.transition().attr("x", `${this.dataXMove}%`).duration(1000);
+      document.getElementsByClassName("return")[0].innerHTML = '<p>overflow: max size reached</p>'
     }
-
-    this.dataXMove = this.dataXMove + arraySquareWidth;
-    this.top++;
-
-    //document.getElementsByClassName("topSVG")[0].style.display = "inline";
-    //document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.dataXMove}%`;
-
-    //topIndexContainer.transition().attr("x", `${this.dataXMove + arraySquareWidth}%`).duration(1000);
-
-
-
+    document.getElementsByClassName("dataArray")[0].innerHTML = `[${this.dataLetters}]`
+    document.getElementsByClassName("topIndex")[0].innerHTML = this.top;
   }
-
-
-
-
-  /**********************
-
-    //pushes the letters to the data array
-    this.data.push(textData);
-
-    //to push the data across the screen
-    if (this.isEmpty()) {
-      console.log("empty")
-      this.dataXMove += (arraySquareWidth/2) + svgContainerFirstMargin;
-    } else {
-      console.log("NOT empty")
-      this.dataXMove += arraySquareWidth;
-    }
-    console.log(this.dataXMove);
-    textData.transition().attr("x", `${this.dataXMove}%`).duration(1000);
-
-    this.top++;
-
-    **************/
-
-
-    //document.getElementsByClassName("topIndex")[0].innerHTML = this.top;
-
-    // //changes the HTML
-    // if (this.dataXLocation === 0) {
-    //   this.dataXLocation += 5
-    //   document.getElementsByClassName("dataArray")[0].innerHTML += `${String.fromCharCode(this.letterCode)}`;
-    // } else {
-    //   this.dataXLocation += 10
-    //   document.getElementsByClassName("dataArray")[0].innerHTML += `, ${String.fromCharCode(this.letterCode)}`;
-    // }
-    // textData.transition().attr("x", `${this.dataXLocation}%`).duration(1000);
-    //
-    // document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.svgXMove}%`;
-    // this.svgXMove += 10;
-
-
   peekData() {
     if (this.top < 0) {
-      return null;
+      document.getElementsByClassName("return")[0].innerHTML = '<p>null</p>'
+    } else {
+      console.log(this.data[this.top])
+      this.data[this.top].attr("fill", "#86E766")
+      topIndexPointer.transition().attr("fill", "#86E766" )
+      document.getElementsByClassName("return")[0].innerHTML = `<p>${this.dataLetters[this.top]}</p>`
     }
-    console.log(this.data[this.top]);
-    this.data[this.top].transition().attr("fill", "orange");
-    document.getElementsByClassName("returnVal")[0].innerHTML = String.fromCharCode(this.letterCode);
-    //this.data[this.top]._groups[0][0].innerHTML
   }
   popData() {
-    this.data[this.top].transition().attr("y", 30).duration(100).transition().attr("y", 200).duration(2000);
-    this.dataXLocation -= 10;
-    this.data.pop();
-    this.top = this.top - 1;
+    if (this.isEmpty()) {
+      document.getElementsByClassName("return")[0].innerHTML = '<p>underflow</p>'
+    } else {
+      this.resetColors();
+      //update return value to be the letter removed
+      document.getElementsByClassName("return")[0].innerHTML = `<p>${this.dataLetters[this.top]}</p>`
 
-    document.getElementsByClassName("topSVG")[0].style.marginLeft = `${this.dataXLocation-3.5}%`;
-  }
+      this.dataXMove -= arraySquareWidth;
+      console.log(this.dataXMove)
+      this.dataLetters.pop();
+      //removes letters vis
+      this.data[this.top].transition().attr("y", -.25).duration(250).transition().attr("y", 200).duration(1500);
+      //moves the top index vis
+      topIndexPointer.transition().attr("x", `${this.dataXMove - arraySquareWidth}%`).duration(1000);
+      topIndexPointerText.transition().attr("x", `${this.dataXMove - arraySquareWidth/2}%`).duration(1000);
+      //updates properties
+      this.top--;
+      this.data.pop();
+      //update HTML
+      document.getElementsByClassName("dataArray")[0].innerHTML = `[${this.dataLetters}]`
+      document.getElementsByClassName("topIndex")[0].innerHTML = this.top;
+    }
+  }//pop() end
 } //stack end
 
 //creates a new stack
@@ -163,14 +173,7 @@ var stack = new Stack();
 //runs actions when buttons are pushed
 
 //When ISEMPTY() is pressed:
-document.getElementsByClassName("isEmptyBtn")[0].onclick = () => {
-    console.log(stack.isEmpty());
-    if (stack.isEmpty()) {
-      document.getElementsByClassName("return")[0].innerHTML = '<p>true</p>'
-    } else {
-      document.getElementsByClassName("return")[0].innerHTML = '<p>false</p>'
-    }
-  }
+document.getElementsByClassName("isEmptyBtn")[0].onclick = () => stack.isEmpty();
 document.getElementsByClassName("pushBtn")[0].onclick = () => stack.pushData();
 document.getElementsByClassName("peekBtn")[0].onclick = () => stack.peekData();
 document.getElementsByClassName("popBtn")[0].onclick = () => stack.popData();
